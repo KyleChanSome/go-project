@@ -40,6 +40,7 @@ func (l *Lexer) NextToken() token.Token {
 			tok = newToken(token.ASSIGN, l.ch)
 		}
 	case ';':
+
 		tok = newToken(token.SEMICOLON, l.ch)
 	case '(':
 		tok = newToken(token.LPAREN, l.ch)
@@ -53,6 +54,7 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LBRACE, l.ch)
 	case '}':
 		tok = newToken(token.RBRACE, l.ch)
+
 	case '-':
 		tok = newToken(token.MINUS, l.ch)
 	case '!':
@@ -63,6 +65,7 @@ func (l *Lexer) NextToken() token.Token {
 		} else {
 			tok = newToken(token.BANG, l.ch)
 		}
+
 	case '/':
 		tok = newToken(token.SLASH, l.ch)
 	case '*':
@@ -74,6 +77,11 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+
+	case '"':
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
+
 	default:
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
@@ -132,4 +140,16 @@ func (l *Lexer) peekChar() byte {
 	} else {
 		return l.input[l.readPosition]
 	}
+}
+
+func (l *Lexer) readString() string {
+	position := l.position + 1
+	for {
+		l.readChar()
+
+		if l.ch == '"' || l.ch == 0 {
+			break
+		}
+	}
+	return l.input[position:l.position]
 }
