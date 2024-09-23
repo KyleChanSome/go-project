@@ -97,6 +97,4 @@ var builtins = map[string]*object.Builtin{
 			return &object.Array{Elements: newElements}
 		},
 	},
-
-	//TODO can build in map and reduce functions pg 180-181
 }
