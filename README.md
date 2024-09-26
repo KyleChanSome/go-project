@@ -6,7 +6,7 @@ in terminal in monkey folder-
 ```
 go run main.go
 ```
-Some example code to try:
+From simple outputs to closures! Here's some example code to try:
 ```
 puts("Hello World!")
 
@@ -15,10 +15,11 @@ let addTwo = newAdder(2);
 addTwo(3);
 
 ```
-output expected 
+Expected output: 
 
 ```
 Hello World!
 null
+
 5
 ```
